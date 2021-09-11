@@ -8,7 +8,7 @@ import TableOrdersItems from "~/components/shared/tables/TableOrdersItems";
 import { toggleDrawerMenu } from "~/store/app/action";
 
 const { Option } = Select;
-const OrdersPage = () => {
+const OrderTracking = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(toggleDrawerMenu(false));
@@ -16,8 +16,8 @@ const OrdersPage = () => {
   return (
     <ContainerDefault>
       <HeaderDashboard
-        title="Recent Orders"
-        description="E-needz Orders Listing"
+        title="Order Tracking"
+        description="E-needz Order Tracking Listing"
       />
       <section className="ps-items-listing">
         <div className="ps-section__header simple">
@@ -80,4 +80,4 @@ const OrdersPage = () => {
     </ContainerDefault>
   );
 };
-export default connect((state) => state.app)(OrdersPage);
+export default connect((state) => state.app)(OrderTracking);
