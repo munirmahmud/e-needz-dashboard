@@ -1,4 +1,4 @@
-import { Select } from "antd";
+import { DatePicker, Select } from "antd";
 import React, { useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import Pagination from "~/components/elements/basic/Pagination";
@@ -15,7 +15,10 @@ const OrdersPage = () => {
   }, []);
   return (
     <ContainerDefault>
-      <HeaderDashboard title="Orders" description="E-needz Orders Listing" />
+      <HeaderDashboard
+        title="Recent Orders"
+        description="E-needz Orders Listing"
+      />
       <section className="ps-items-listing">
         <div className="ps-section__header simple">
           <div className="ps-section__filter">
@@ -48,9 +51,12 @@ const OrdersPage = () => {
                     <Option value="cancel">Cancel</Option>
                   </Select>
                 </div>
+
                 <div className="form-group">
-                  <label htmlFor="order_date">Date</label>
-                  <input id="order_date" className="form-control" type="date" />
+                  <label htmlFor="order_date" className="d-block mb-4">
+                    Date
+                  </label>
+                  <DatePicker id="order_date" className="mt-2" size="large" />
                 </div>
               </div>
               <div className="ps-form__right mt-3">
