@@ -21,7 +21,7 @@ export const makeStore = (context) => {
   return store;
 };
 
-export const wrapper = createWrapper(makeStore, { debug: false });
+export const wrapper = createWrapper(makeStore, { debug: false })
 
 /*
 const persistConfig = {
