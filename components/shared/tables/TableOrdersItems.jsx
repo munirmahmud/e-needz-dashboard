@@ -115,6 +115,7 @@ const TableOrdersItems = () => {
       </tr>
     );
   });
+
   return (
     <div className="table-responsive">
       <table className="table ps-table">

@@ -1,10 +1,8 @@
-import Link from "next/link";
 import React from "react";
-import Pagination from "~/components/elements/basic/Pagination";
 import ContainerDefault from "~/components/layouts/ContainerDefault";
 import HeaderDashboard from "~/components/shared/headers/HeaderDashboard";
 
-const PaymentHistory = () => {
+const PaymentDetails = () => {
   const orderItems = [
     {
       id: "#A580",
@@ -64,16 +62,13 @@ const PaymentHistory = () => {
         </td>
         <td>{item.order_number}</td>
         <td>John Doe</td>
+        <td>City Bank</td>
+        <td>Paid</td>
         <td>
           <strong>{item.total}</strong>
         </td>
+        <td>2020/21/10</td>
         <td>{badgeView}</td>
-
-        <td>
-          <Link href="/payment-history/1">
-            <a className="dropdown-item">Details</a>
-          </Link>
-        </td>
       </tr>
     );
   });
@@ -81,8 +76,8 @@ const PaymentHistory = () => {
   return (
     <ContainerDefault>
       <HeaderDashboard
-        title="Payment History"
-        description="E-needz - Customer Payment History"
+        title="Payment Details"
+        description="E-needz - Customer Payment Details"
       />
       <section className="ps-items-listing">
         <div className="ps-section__content">
@@ -94,20 +89,19 @@ const PaymentHistory = () => {
                   <th>Payment ID</th>
                   <th>Order ID</th>
                   <th>Name</th>
+                  <th>Payment Method</th>
+                  <th>Status</th>
                   <th>Amount</th>
-                  <th className="text-right">Action</th>
+                  <th>Date</th>
                 </tr>
               </thead>
               <tbody>{tableItemsView}</tbody>
             </table>
           </div>
         </div>
-        <div className="ps-section__footer">
-          <p>Show 10 in 30 items.</p>
-          <Pagination />
-        </div>
       </section>
     </ContainerDefault>
   );
 };
-export default PaymentHistory;
+
+export default PaymentDetails;
