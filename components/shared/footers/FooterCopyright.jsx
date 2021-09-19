@@ -3,7 +3,7 @@ import React from "react";
 
 const FooterCopyright = () => {
   return (
-    <div className="ps-copyright text-center">
+    <div className="ps-copyright text-center pr-5">
       <Link href="/">
         <a>
           <img src="/img/logo.png" alt="e-needz" width="70" />
