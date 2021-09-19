@@ -33,7 +33,7 @@ const OrdersPage = () => {
     }
 
     fetch(
-      'http://178.128.30.38/api/react/customer_dashboard/manage_order',
+      'http://178.128.30.38/api/react/customer_dashboard/manage_order' /** @TODO Change this into .env file */,
       requestOptions
     )
       .then((response) => response.json())
@@ -51,11 +51,9 @@ const OrdersPage = () => {
 
   useEffect(() => {
     if (usrOrderItems.length > 0) {
-      console.log(usrOrderItems)
       const temps = usrOrderItems.map((data, index) => {
         if (index > offset && index < spliceNO) return data
       })
-      console.log('usrOrderItems -', usrOrderItems, '\n', 'temps', temps)
       setUsrOrderItemsSpliced(temps)
     }
   }, [usrOrderItems, spliceNO])

@@ -1,7 +1,7 @@
-import { Menu } from "antd";
-import Link from "next/link";
-import React from "react";
-import DropdownAction from "~/components/elements/basic/DropdownAction";
+import { Menu } from 'antd'
+import Link from 'next/link'
+import React from 'react'
+import DropdownAction from '~/components/elements/basic/DropdownAction'
 
 const TableOrdersItems = ({ usrOrderItems, err }) => {
   const tableItemsView = usrOrderItems.map((item, index) => {
@@ -12,8 +12,8 @@ const TableOrdersItems = ({ usrOrderItems, err }) => {
     const menuView = (
       <Menu>
         <Menu.Item key={0}>
-          <Link href="/orders/order-detail/1">
-            <a className="dropdown-item">Edit ads</a>
+          <Link href='/orders/order-detail/1'>
+            <a className='dropdown-item'>Edit ads</a>
           </Link>
         </Menu.Item>
         <Menu.Item key={0}>
@@ -29,20 +29,31 @@ const TableOrdersItems = ({ usrOrderItems, err }) => {
      * @TODO
      * @assignee Hossain
      * @Date Sep 12 2021
-     * This block has to be Dynamic
+     * @Task Please Change the background color according company policy
      **/
 
-    if (item.payment_status === 1) {
-      badgeView = <span className='ps-badge success'>Paid</span>
-    } else {
+    if (item.order_status === '1') {
+      badgeView = <span className='ps-badge success'>Pending</span>
+    } else if (item.order_status === '2') {
       badgeView = (
-        <span
-          className='ps-badge gray'
-          // style={{ background: 'red', color: 'white' }}
-        >
-          Expired
+        <span className='ps-badge' style={{ backgroundColor: 'yellow' }}>
+          processing
         </span>
       )
+    } else if (item.order_status === '3') {
+      badgeView = <span className='ps-badge success'>shipping</span>
+    } else if (item.order_status === '4') {
+      badgeView = <span className='ps-badge success'>delivered</span>
+    } else if (item.order_status === '5') {
+      badgeView = <span className='ps-badge danger'>returned</span>
+    } else if (item.order_status === '6') {
+      badgeView = <span className='ps-badge success'>cancelled</span>
+    } else if (item.order_status === '7') {
+      badgeView = <span className='ps-badge success'>partial_delivery</span>
+    } else if (item.order_status === '18') {
+      badgeView = <span className='ps-badge success'>refunded</span>
+    } else if (item.order_status === '19') {
+      badgeView = <span className='ps-badge success'>picked</span>
     }
 
     // switch (item.fullfillment) {

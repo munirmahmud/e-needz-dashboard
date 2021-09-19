@@ -2,8 +2,6 @@ import React from 'react'
 
 const Pagination = ({ spliceNO, setSpliceNO, offset, setOffset, len }) => {
   const pag = Math.ceil(len / 10)
-  console.log(pag)
-
   return (
     <ul className='pagination'>
       <li>
