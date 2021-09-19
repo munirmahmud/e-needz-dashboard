@@ -1,13 +1,12 @@
 import React from 'react'
 
 const Pagination = ({ spliceNO, setSpliceNO, offset, setOffset, len }) => {
-  const pag = Math.ceil(len / 10)
   return (
     <ul className='pagination'>
       <li>
         <a
           onClick={() => {
-            if (offset >= 0 && spliceNO >= 15) {
+            if (offset > 0 && spliceNO >= 15) {
               setOffset(offset - spliceNO)
               setSpliceNO(spliceNO - 5)
             }
@@ -32,7 +31,7 @@ const Pagination = ({ spliceNO, setSpliceNO, offset, setOffset, len }) => {
           onClick={() => {
             if (spliceNO <= len) {
               setOffset(offset + spliceNO)
-              setSpliceNO(spliceNO + 5)
+              setSpliceNO(spliceNO + 10)
             }
           }}
         >
