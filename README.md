@@ -26,5 +26,3 @@ yarn install
 yarn dev
 ```
 
-More informations, please refer:
-[https://nextjs.org/docs/deployment](https://nextjs.org/docs/deployment)
