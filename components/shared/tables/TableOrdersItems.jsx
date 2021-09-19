@@ -90,6 +90,11 @@ const TableOrdersItems = ({ usrOrderItems, err }) => {
         <td>{item.remainingTime}</td>
 
         <td>
+          <Link href='/payment/1'>
+            <a className='ps-badge warning'>Make Payment</a>
+          </Link>
+        </td>
+        <td>
           <DropdownAction />
         </td>
       </tr>
