@@ -16,8 +16,8 @@ const MenuSidebar = () => {
       icon: "icon-bag2",
     },
     {
-      text: "Payment List",
-      url: "/payment-list",
+      text: "Payment History",
+      url: "/payment-history",
       icon: "icon-users2",
     },
     {

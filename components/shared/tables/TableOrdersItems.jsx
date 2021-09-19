@@ -105,11 +105,17 @@ const TableOrdersItems = () => {
         <td>{item.remaining_time}</td>
 
         <td>
+          <Link href="/payment/1">
+            <a className="ps-badge warning">Make Payment</a>
+          </Link>
+        </td>
+        <td>
           <DropdownAction />
         </td>
       </tr>
     );
   });
+
   return (
     <div className="table-responsive">
       <table className="table ps-table">
@@ -121,6 +127,7 @@ const TableOrdersItems = () => {
             <th>Total</th>
             <th>Status</th>
             <th>Remaining Time</th>
+            <th>Payment Options</th>
             <th className="text-right">Action</th>
           </tr>
         </thead>
