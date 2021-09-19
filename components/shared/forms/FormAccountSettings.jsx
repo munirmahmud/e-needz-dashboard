@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react'
 
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 const FormAccountSettings = () => {
   const [fisrtName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -8,19 +11,98 @@ const FormAccountSettings = () => {
   const [shortAdress, setShortAdress] = useState('')
   const [addr01, setAddr01] = useState('')
   const [addr02, setAddr02] = useState('')
-  const [state, setState] = useState('')
+  const [statex, setStatex] = useState('')
   const [city, setCity] = useState('')
   const [zip, setZip] = useState('')
   const [country, setCountry] = useState('')
   const [company, setCompany] = useState('')
   const [image, setImage] = useState('')
 
+  useEffect(() => {
+    var formdata = new FormData()
+
+    /***
+     * @TODO It has to be dynamic
+     ***/
+
+    formdata.append('customer_id', '1508')
+
+    var requestOptions = {
+      method: 'POST',
+      body: formdata,
+      redirect: 'follow',
+    }
+
+    fetch(
+      'http://178.128.30.38/api/react/customer_dashboard/customer_profile',
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        console.log('profile info ', result)
+        if (result.response_status === 200) {
+          setFirstName(result.data.first_name)
+          setLastName(result.data.last_name)
+          setEmail(result.data.customer_email)
+          setShortAdress(result.data.customer_short_address)
+          setAddr01(result.data.customer_address_1)
+          setAddr02(result.data.customer_address_2)
+          setStatex(result.data.state)
+          setCity(result.data.city)
+          setZip(result.data.zip)
+          setCountry(result.data.country)
+          setCompany(result.data.company)
+          setPhone(result.data.customer_mobile)
+        }
+      })
+      .catch((error) => console.log('error', error))
+  }, [])
+
+  const handleProfileUpdate = (e) => {
+    e.preventDefault()
+    var formdata = new FormData()
+    formdata.append('customer_id', '1508')
+    formdata.append('first_name', fisrtName)
+    formdata.append('last_name', lastName)
+    formdata.append('customer_email', email)
+    formdata.append('customer_mobile', phone)
+    formdata.append('customer_short_address', shortAdress)
+    formdata.append('state', statex)
+    formdata.append('city', city)
+    formdata.append('zip', zip)
+    formdata.append('country', country)
+    formdata.append('company', company)
+
+    var requestOptions = {
+      method: 'POST',
+      body: formdata,
+      redirect: 'follow',
+    }
+
+    fetch(
+      'http://178.128.30.38/api/react/customer_dashboard/profile_update',
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.response_status === 200) {
+          toast.success('Your Profile was updated successfully', {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
+        }
+      })
+      .catch((error) => console.log('error', error))
+  }
+
   return (
-    <form
-      className='ps-form--account-settings'
-      action='index.html'
-      method='get'
-    >
+    <form className='ps-form--account-settings' onSubmit={handleProfileUpdate}>
+      <ToastContainer />
       <div className='row'>
         <div className='col-sm-6'>
           <div className='form-group'>
@@ -70,7 +152,7 @@ const FormAccountSettings = () => {
               type='email'
               placeholder='Email'
               value={email}
-              onChange={(e) => setemail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
         </div>
@@ -123,8 +205,8 @@ const FormAccountSettings = () => {
               className='form-control'
               type='text'
               placeholder='State'
-              value={state}
-              onChange={(e) => setState(e.target.value)}
+              value={statex}
+              onChange={(e) => setStatex(e.target.value)}
             />
           </div>
         </div>
@@ -175,8 +257,8 @@ const FormAccountSettings = () => {
               className='form-control'
               type='text'
               placeholder='Company Name'
-              value={first_name}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
             />
           </div>
         </div>
@@ -188,7 +270,9 @@ const FormAccountSettings = () => {
         </div>
       </div>
       <div className='ps-form__submit text-center'>
-        <button className='ps-btn success'>Update Profile</button>
+        <button className='ps-btn success' type='submit'>
+          Update Profile
+        </button>
       </div>
     </form>
   )
