@@ -1,4 +1,5 @@
 import { Menu } from "antd";
+import Link from "next/link";
 import React from "react";
 import DropdownAction from "~/components/elements/basic/DropdownAction";
 
@@ -56,9 +57,9 @@ const TableOrdersItems = () => {
     const menuView = (
       <Menu>
         <Menu.Item key={0}>
-          <a className="dropdown-item" href="#">
-            Edit
-          </a>
+          <Link href="/orders/order-detail/1">
+            <a className="dropdown-item">Edit ads</a>
+          </Link>
         </Menu.Item>
         <Menu.Item key={0}>
           <a className="dropdown-item" href="#">
