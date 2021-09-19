@@ -12,7 +12,7 @@ const ChangePasswordForm = () => {
   const handlePasswordChange = (e) => {
     e.preventDefault()
     var formdata = new FormData()
-    formdata.append('customer_id', 'Z6T6YKX1M9VN3FR')
+    formdata.append('customer_id', 'AVGCHDTTEJQEILX')
     formdata.append('email', email)
     formdata.append('password', oldPassword)
     formdata.append('newpassword', newPassword)

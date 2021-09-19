@@ -1,113 +1,108 @@
-import Link from "next/link";
-import React from "react";
-import Pagination from "~/components/elements/basic/Pagination";
-import ContainerDefault from "~/components/layouts/ContainerDefault";
-import HeaderDashboard from "~/components/shared/headers/HeaderDashboard";
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import Pagination from '~/components/elements/basic/Pagination'
+import ContainerDefault from '~/components/layouts/ContainerDefault'
+import HeaderDashboard from '~/components/shared/headers/HeaderDashboard'
 
 const PaymentHistory = () => {
-  const orderItems = [
-    {
-      id: "#A580",
-      date: "Aug 15, 2020",
-      order_number: 54545279,
-      total: "$56.00",
-      order_status: "Pending",
-      remaining_time: "02 D 10 H 52 M 44 S",
-      payment_status: true,
-    },
-    {
-      id: "#B260",
-      date: "Aug 15, 2020",
-      order_number: 54545279,
-      total: "$56.00",
-      order_status: "Paid",
-      remaining_time: "02 D 10 H 52 M 44 S",
-      payment_status: false,
-    },
-    {
-      id: "#A583",
-      date: "Aug 17, 2020",
-      order_number: 54545279,
-      total: "$56.00",
-      payment_status: true,
-      order_status: "Pending",
-      remaining_time: "02 D 10 H 52 M 44 S",
-    },
-    {
-      id: "#A523",
-      date: "Aug 18, 2020",
-      order_number: 54545279,
-      total: "$56.00",
-      payment_status: false,
-      order_status: "Paid",
-      remaining_time: "02 D 10 H 52 M 44 S",
-    },
-    {
-      id: "#A112",
-      date: "Aug 19, 2020",
-      order_number: 54545279,
-      total: "$56.00",
-      order_status: "Pending",
-      payment_status: false,
-      remaining_time: "02 D 10 H 52 M 44 S",
-    },
-  ];
+  const [paymentHistory, setPaymentHistory] = useState([])
+  const [splitPaymentHistory, setSplitPaymentHistory] = useState([])
+  const [len, setLen] = useState(0)
+  const [offset, setOffset] = useState(0)
+  const [spliceNO, setSpliceNO] = useState(10)
 
-  const tableItemsView = orderItems.map((item) => {
-    let badgeView, fullfillmentView;
+  // useEffect(() => {
+  //   console.log('offset', offset, 'spliceNO', spliceNO)
+  // }, [offset, spliceNO])
 
-    return (
-      <tr key={item.id}>
-        <td>{item.id}</td>
-        <td>
-          <strong> 4545616</strong>
-        </td>
-        <td>{item.order_number}</td>
-        <td>John Doe</td>
-        <td>
-          <strong>{item.total}</strong>
-        </td>
-        <td>{badgeView}</td>
+  useEffect(() => {
+    var formdata = new FormData()
+    formdata.append('customer_id', 'BMJUCC22X54NZCN')
 
-        <td>
-          <Link href="/payment-history/1">
-            <a className="dropdown-item">Details</a>
-          </Link>
-        </td>
-      </tr>
-    );
-  });
+    var requestOptions = {
+      method: 'POST',
+      body: formdata,
+      redirect: 'follow',
+    }
 
+    fetch(
+      'http://178.128.30.38/api/react/customer_dashboard/payment_history',
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        console.table(result.data)
+        if (result.response_status === 200) {
+          setPaymentHistory(result.data)
+          setSplitPaymentHistory(result.data)
+          setLen(result.data.length)
+        }
+      })
+      .catch((error) => console.log('error', error))
+  }, [])
+
+  const tableItemsView = splitPaymentHistory
+    .splice(offset, spliceNO)
+    .map((item, index) => {
+      return (
+        <tr key={item.payment_id} className='text-center'>
+          <td>{index + 1}</td>
+          <td>
+            <strong>{item.payment_id}</strong>
+          </td>
+          <td>{item.order_id}</td>
+          <td>{item.customer_name}</td>
+          <td>
+            <strong>{item.payment_amount}</strong>
+          </td>
+          <td>
+            <Link href={`/payment-history/${item.order_no}`}>
+              {item.order_no !== null ? (
+                <a className='dropdown-item text-center'>Details</a>
+              ) : (
+                ''
+              )}
+            </Link>
+          </td>
+        </tr>
+      )
+    })
   return (
     <ContainerDefault>
       <HeaderDashboard
-        title="Payment History"
-        description="E-needz - Customer Payment History"
+        title='Payment History'
+        description='E-needz - Customer Payment History'
       />
-      <section className="ps-items-listing">
-        <div className="ps-section__content">
-          <div className="table-responsive">
-            <table className="table ps-table">
+      <section className='ps-items-listing'>
+        <div className='ps-section__content'>
+          <div className='table-responsive'>
+            <table className='table ps-table'>
               <thead>
-                <tr>
+                <tr className='text-center'>
                   <th>SL</th>
                   <th>Payment ID</th>
                   <th>Order ID</th>
                   <th>Name</th>
                   <th>Amount</th>
-                  <th className="text-right">Action</th>
+                  <th className='text-center'>Action</th>
                 </tr>
               </thead>
               <tbody>{tableItemsView}</tbody>
             </table>
           </div>
         </div>
-        <div className="ps-section__footer">
-          <p>Show 10 in 30 items.</p>
-          <Pagination />
+        <div className='ps-section__footer'>
+          <p>Show 10 in {len} items.</p>
+          <Pagination
+            setSpliceNO={setSpliceNO}
+            spliceNO={spliceNO}
+            offset={offset}
+            setOffset={setOffset}
+            len={len}
+          />
         </div>
       </section>
     </ContainerDefault>
-  );
-};
-export default PaymentHistory;
+  )
+}
+export default PaymentHistory
